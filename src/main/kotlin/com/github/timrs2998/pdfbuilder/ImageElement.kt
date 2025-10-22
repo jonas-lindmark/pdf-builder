@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.pdmodel.PDPageContentStream
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode.APPEND
-import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject
 
 class ImageElement(
@@ -30,7 +30,7 @@ class ImageElement(
   ) {
 
     val pdImage =
-        if (bufferedImage != null) JPEGFactory.createFromImage(pdDocument, bufferedImage)
+        if (bufferedImage != null) LosslessFactory.createFromImage(pdDocument, bufferedImage)
         else PDImageXObject.createFromFile(imagePath, pdDocument)
 
     imgHeight = imgHeight ?: pdImage.height
