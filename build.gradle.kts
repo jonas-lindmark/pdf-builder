@@ -15,6 +15,8 @@ version = "2.1.0"
 
 description = "PDF builder written in Kotlin with a statically typed DSL"
 
+java { withSourcesJar() }
+
 repositories { mavenCentral() }
 
 dependencies {
