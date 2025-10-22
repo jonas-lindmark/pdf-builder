@@ -52,6 +52,23 @@ fun Document.image(bufferedImage: BufferedImage, init: ImageElement.() -> Unit =
 }
 
 @DocumentMarker
+fun Document.line(orientation: LineOrientation, length: Float, width: Float = 1F) =
+    this.line(orientation, length, width) {}
+
+@DocumentMarker
+fun Document.line(
+    orientation: LineOrientation,
+    length: Float,
+    width: Float = 1F,
+    init: LineElement.() -> Unit = {}
+): LineElement {
+  val lineElement = LineElement(this, orientation, length, width)
+  lineElement.init()
+  this.children.add(lineElement)
+  return lineElement
+}
+
+@DocumentMarker
 fun Document.table(init: TableElement.() -> Unit): TableElement {
   val tableElement = TableElement(this)
   tableElement.init()
