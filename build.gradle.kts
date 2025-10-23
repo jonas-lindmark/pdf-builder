@@ -22,6 +22,7 @@ repositories { mavenCentral() }
 dependencies {
   implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+  implementation("com.google.zxing:core:3.5.3")
   api("org.apache.pdfbox:pdfbox:${Versions.pdfbox}")
 
   testRuntimeOnly("org.jetbrains.kotlin:kotlin-reflect")

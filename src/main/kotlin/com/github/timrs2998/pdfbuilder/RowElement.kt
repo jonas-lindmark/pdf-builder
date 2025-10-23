@@ -4,7 +4,7 @@ import org.apache.pdfbox.pdmodel.PDDocument
 
 class RowElement(override val parent: TableElement) : Element(parent) {
 
-  val columns = mutableListOf<TextElement>()
+  val columns = mutableListOf<Element>()
 
   var minHeight = 0f
 
@@ -30,7 +30,7 @@ class RowElement(override val parent: TableElement) : Element(parent) {
     }
   }
 
-  private fun TextElement.getWidth(totalWidth: Float): Float {
+  private fun Element.getWidth(totalWidth: Float): Float {
     val multiplier =
         if (weights.isEmpty()) 1f / columns.size else weights[columns.indexOf(this)] / weights.sum()
     return totalWidth * multiplier
