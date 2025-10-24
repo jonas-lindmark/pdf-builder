@@ -1,5 +1,6 @@
 package com.github.timrs2998.pdfbuilder
 
+import com.github.timrs2998.pdfbuilder.elements.Document
 import com.github.timrs2998.pdfbuilder.style.Orientation
 import java.awt.Color
 import org.apache.pdfbox.pdmodel.PDDocument

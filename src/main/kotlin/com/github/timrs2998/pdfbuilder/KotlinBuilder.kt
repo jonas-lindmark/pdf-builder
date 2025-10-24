@@ -1,5 +1,12 @@
 package com.github.timrs2998.pdfbuilder
 
+import com.github.timrs2998.pdfbuilder.elements.ContainerElement
+import com.github.timrs2998.pdfbuilder.elements.Document
+import com.github.timrs2998.pdfbuilder.elements.ImageElement
+import com.github.timrs2998.pdfbuilder.elements.QrCodeElement
+import com.github.timrs2998.pdfbuilder.elements.RowElement
+import com.github.timrs2998.pdfbuilder.elements.TableElement
+import com.github.timrs2998.pdfbuilder.elements.TextElement
 import java.awt.image.BufferedImage
 import org.apache.pdfbox.pdmodel.PDDocument
 
@@ -7,7 +14,8 @@ import org.apache.pdfbox.pdmodel.PDDocument
 @DslMarker annotation class DocumentMarker
 
 /**
- * Creates the outermost [Document] [element][Element] representing the pdf, and returns the
+ * Creates the outermost [com.github.timrs2998.pdfbuilder.elements.Document]
+ * [element][com.github.timrs2998.pdfbuilder.elements.Element] representing the pdf, and returns the
  * rendered [PDDocument] that can be [saved][PDDocument.save] to a [java.io.File] or
  * [java.io.OutputStream].
  *

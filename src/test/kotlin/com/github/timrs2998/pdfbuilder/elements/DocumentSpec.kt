@@ -1,4 +1,4 @@
-package com.github.timrs2998.pdfbuilder
+package com.github.timrs2998.pdfbuilder.elements
 
 import io.kotest.core.spec.style.FunSpec
 import java.io.ByteArrayOutputStream

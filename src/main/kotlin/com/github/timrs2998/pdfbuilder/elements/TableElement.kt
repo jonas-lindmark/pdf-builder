@@ -1,5 +1,6 @@
-package com.github.timrs2998.pdfbuilder
+package com.github.timrs2998.pdfbuilder.elements
 
+import com.github.timrs2998.pdfbuilder.drawLine
 import org.apache.pdfbox.pdmodel.PDDocument
 
 /**

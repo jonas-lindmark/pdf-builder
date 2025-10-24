@@ -1,4 +1,4 @@
-package com.github.timrs2998.pdfbuilder
+package com.github.timrs2998.pdfbuilder.elements
 
 abstract class ContainerElement(parent: Element?) : Element(parent) {
   val children: List<Element>

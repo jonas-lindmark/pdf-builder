@@ -1,9 +1,9 @@
 package com.github.timrs2998.pdfbuilder.examples
 
-import com.github.timrs2998.pdfbuilder.Document
-import com.github.timrs2998.pdfbuilder.RowElement
-import com.github.timrs2998.pdfbuilder.TableElement
-import com.github.timrs2998.pdfbuilder.TextElement
+import com.github.timrs2998.pdfbuilder.elements.Document
+import com.github.timrs2998.pdfbuilder.elements.RowElement
+import com.github.timrs2998.pdfbuilder.elements.TableElement
+import com.github.timrs2998.pdfbuilder.elements.TextElement
 import com.github.timrs2998.pdfbuilder.style.Alignment
 import com.github.timrs2998.pdfbuilder.style.Border
 import java.awt.Color

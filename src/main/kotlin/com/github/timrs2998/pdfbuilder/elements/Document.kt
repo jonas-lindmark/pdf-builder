@@ -1,5 +1,6 @@
-package com.github.timrs2998.pdfbuilder
+package com.github.timrs2998.pdfbuilder.elements
 
+import com.github.timrs2998.pdfbuilder.getPageIndex
 import com.github.timrs2998.pdfbuilder.style.Orientation
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.pdmodel.common.PDRectangle

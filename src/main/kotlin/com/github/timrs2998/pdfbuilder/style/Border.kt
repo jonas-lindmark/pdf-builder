@@ -1,7 +1,7 @@
 package com.github.timrs2998.pdfbuilder.style
 
-import com.github.timrs2998.pdfbuilder.Document
 import com.github.timrs2998.pdfbuilder.drawLine
+import com.github.timrs2998.pdfbuilder.elements.Document
 import java.awt.Color
 import org.apache.pdfbox.pdmodel.PDDocument
 

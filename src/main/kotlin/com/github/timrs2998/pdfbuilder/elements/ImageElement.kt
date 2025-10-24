@@ -1,6 +1,8 @@
-package com.github.timrs2998.pdfbuilder
+package com.github.timrs2998.pdfbuilder.elements
 
+import com.github.timrs2998.pdfbuilder.getPage
 import com.github.timrs2998.pdfbuilder.style.Alignment
+import com.github.timrs2998.pdfbuilder.transformY
 import java.awt.image.BufferedImage
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.pdmodel.PDPageContentStream

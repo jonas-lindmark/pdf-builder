@@ -1,5 +1,7 @@
 package com.github.timrs2998.pdfbuilder
 
+import com.github.timrs2998.pdfbuilder.elements.ContainerChild
+import com.github.timrs2998.pdfbuilder.elements.Element
 import com.github.timrs2998.pdfbuilder.style.Alignment
 import java.awt.Color
 import org.apache.pdfbox.pdmodel.PDDocument

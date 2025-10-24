@@ -1,6 +1,8 @@
-package com.github.timrs2998.pdfbuilder
+package com.github.timrs2998.pdfbuilder.elements
 
+import com.github.timrs2998.pdfbuilder.document
 import com.github.timrs2998.pdfbuilder.style.Wrap
+import com.github.timrs2998.pdfbuilder.text
 import io.kotest.core.spec.style.FunSpec
 import java.io.ByteArrayOutputStream
 

@@ -1,4 +1,4 @@
-package com.github.timrs2998.pdfbuilder
+package com.github.timrs2998.pdfbuilder.elements
 
 import org.apache.pdfbox.pdmodel.PDDocument
 
