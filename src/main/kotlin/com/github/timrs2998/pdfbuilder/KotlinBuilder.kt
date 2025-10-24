@@ -7,6 +7,7 @@ import com.github.timrs2998.pdfbuilder.elements.QrCodeElement
 import com.github.timrs2998.pdfbuilder.elements.RowElement
 import com.github.timrs2998.pdfbuilder.elements.TableElement
 import com.github.timrs2998.pdfbuilder.elements.TextElement
+import com.github.timrs2998.pdfbuilder.elements.VerticalStackElement
 import java.awt.image.BufferedImage
 import org.apache.pdfbox.pdmodel.PDDocument
 
@@ -83,6 +84,14 @@ fun ContainerElement.line(
   lineElement.init()
   addContainerChild(lineElement)
   return lineElement
+}
+
+@ContainerElementMarker
+fun ContainerElement.vStack(init: VerticalStackElement.() -> Unit = {}): VerticalStackElement {
+  val element = VerticalStackElement(this)
+  element.init()
+  addContainerChild(element)
+  return element
 }
 
 @DslMarker annotation class TableMarker
