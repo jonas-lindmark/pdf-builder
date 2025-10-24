@@ -17,7 +17,7 @@ object KotlinDslExample {
   @JvmStatic
   fun main(args: Array<String>) {
     document {
-          padding = Padding(50f, 50f, 50f, 50f)
+          margin = Margin(50f, 50f, 50f, 50f)
           horizontalAlignment = Alignment.CENTER
 
           // Free image from https://pixabay.com/

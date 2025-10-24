@@ -52,12 +52,7 @@ class Document : ContainerElement(null) {
       minHeight: Float
   ) {
     children.fold(startY) { startY, child ->
-      // Handle paging unless child is table (tables handle page conflicts by row)
-      val adjustedStartY =
-          when (child) {
-            is TableElement -> startY
-            else -> adjustStartYForPaging(startY, startY + child.height(endX - startX, startY))
-          }
+      val adjustedStartY = adjustStartYForPaging(startY, startY + child.height(endX - startX, startY))
       child.render(pdDocument, startX, endX, adjustedStartY)
       adjustedStartY + child.height(endX - startX, adjustedStartY)
     }
