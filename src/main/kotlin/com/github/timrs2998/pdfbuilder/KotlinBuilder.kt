@@ -19,54 +19,53 @@ fun document(init: Document.() -> Unit): PDDocument {
   return document.render()
 }
 
-// Workaround for Groovy disliking kotlin default parameters
-@DocumentMarker fun Document.text(value: String) = this.text(value) {}
+@TableMarker
+fun Document.table(init: TableElement.() -> Unit): TableElement {
+  val tableElement = TableElement(this)
+  tableElement.init()
+  addContainerChild(tableElement)
+  return tableElement
+}
 
-@DocumentMarker
-fun Document.text(value: String, init: TextElement.() -> Unit = {}): TextElement {
+@DslMarker annotation class ContainerElementMarker
+
+@ContainerElementMarker
+fun ContainerElement.text(value: String, init: TextElement.() -> Unit = {}): TextElement {
   val textElement = TextElement(this, value)
   textElement.init()
-  this.children.add(textElement)
+  addContainerChild(textElement)
   return textElement
 }
 
-@DocumentMarker fun Document.image(imagePath: String) = this.image(imagePath) {}
-
-@DocumentMarker
-fun Document.image(imagePath: String, init: ImageElement.() -> Unit = {}): ImageElement {
+@ContainerElementMarker
+fun ContainerElement.image(imagePath: String, init: ImageElement.() -> Unit = {}): ImageElement {
   val imageElement = ImageElement(this, imagePath, null)
   imageElement.init()
-  this.children.add(imageElement)
+  addContainerChild(imageElement)
   return imageElement
 }
 
-@DocumentMarker
-fun Document.image(bufferedImage: BufferedImage): ImageElement = this.image(bufferedImage) {}
-
-@DocumentMarker
-fun Document.image(bufferedImage: BufferedImage, init: ImageElement.() -> Unit = {}): ImageElement {
+@ContainerElementMarker
+fun ContainerElement.image(
+    bufferedImage: BufferedImage,
+    init: ImageElement.() -> Unit = {}
+): ImageElement {
   val imageElement = ImageElement(this, "", bufferedImage)
   imageElement.init()
-  this.children.add(imageElement)
+  addContainerChild(imageElement)
   return imageElement
 }
 
-@DocumentMarker fun Document.qrCode(content: String) = this.qrCode(content) {}
-
-@DocumentMarker
-fun Document.qrCode(content: String, init: QrCodeElement.() -> Unit): QrCodeElement {
+@ContainerElementMarker
+fun ContainerElement.qrCode(content: String, init: QrCodeElement.() -> Unit = {}): QrCodeElement {
   val qrCodeElement = QrCodeElement(this, content)
   qrCodeElement.init()
-  this.children.add(qrCodeElement)
+  addContainerChild(qrCodeElement)
   return qrCodeElement
 }
 
-@DocumentMarker
-fun Document.line(orientation: LineOrientation, length: Float, width: Float = 1F) =
-    this.line(orientation, length, width) {}
-
-@DocumentMarker
-fun Document.line(
+@ContainerElementMarker
+fun ContainerElement.line(
     orientation: LineOrientation,
     length: Float,
     width: Float = 1F,
@@ -74,16 +73,8 @@ fun Document.line(
 ): LineElement {
   val lineElement = LineElement(this, orientation, length, width)
   lineElement.init()
-  this.children.add(lineElement)
+  addContainerChild(lineElement)
   return lineElement
-}
-
-@DocumentMarker
-fun Document.table(init: TableElement.() -> Unit): TableElement {
-  val tableElement = TableElement(this)
-  tableElement.init()
-  this.children.add(tableElement)
-  return tableElement
 }
 
 @DslMarker annotation class TableMarker
@@ -105,41 +96,3 @@ fun TableElement.row(init: RowElement.() -> Unit): RowElement {
 }
 
 @DslMarker annotation class RowMarker
-
-// Workaround for Groovy disliking kotlin default parameters
-@RowMarker fun RowElement.text(value: String) = this.text(value) {}
-
-@RowMarker
-fun RowElement.text(value: String, init: TextElement.() -> Unit = {}): TextElement {
-  val textElement = TextElement(this, value)
-  textElement.init()
-  this.columns.add(textElement)
-  return textElement
-}
-
-@RowMarker fun RowElement.qrCode(content: String) = this.qrCode(content) {}
-
-@RowMarker
-fun RowElement.qrCode(content: String, init: QrCodeElement.() -> Unit): QrCodeElement {
-  val qrCodeElement = QrCodeElement(this, content)
-  qrCodeElement.init()
-  this.columns.add(qrCodeElement)
-  return qrCodeElement
-}
-
-@RowMarker
-fun RowElement.line(orientation: LineOrientation, length: Float, width: Float = 1F) =
-    this.line(orientation, length, width) {}
-
-@RowMarker
-fun RowElement.line(
-    orientation: LineOrientation,
-    length: Float,
-    width: Float = 1F,
-    init: LineElement.() -> Unit = {}
-): LineElement {
-  val lineElement = LineElement(this, orientation, length, width)
-  lineElement.init()
-  this.columns.add(lineElement)
-  return lineElement
-}

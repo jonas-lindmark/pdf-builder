@@ -12,7 +12,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode.APPEND
 class QrCodeElement(
     parent: Element,
     val content: String,
-) : Element(parent) {
+) : Element(parent), ContainerChild {
+  override fun toElement() = this
 
   var height: Float = 50F
   var width: Float = 50F

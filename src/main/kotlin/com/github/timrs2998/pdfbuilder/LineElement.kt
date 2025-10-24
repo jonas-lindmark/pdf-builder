@@ -14,7 +14,9 @@ class LineElement(
     val orientation: LineOrientation,
     val lineLength: Float,
     var lineWidth: Float
-) : Element(parent) {
+) : Element(parent), ContainerChild {
+  override fun toElement() = this
+
   val height: Float
     get() =
         when (orientation) {

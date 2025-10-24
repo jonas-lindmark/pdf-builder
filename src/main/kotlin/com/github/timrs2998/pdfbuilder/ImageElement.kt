@@ -12,7 +12,8 @@ class ImageElement(
     parent: Element,
     private val imagePath: String = "",
     private val bufferedImage: BufferedImage? = null
-) : Element(parent) {
+) : Element(parent), ContainerChild {
+  override fun toElement() = this
 
   var imgHeight: Int? = null
   var imgWidth: Int? = null

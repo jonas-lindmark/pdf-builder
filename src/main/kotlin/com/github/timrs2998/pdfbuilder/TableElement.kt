@@ -7,7 +7,8 @@ import org.apache.pdfbox.pdmodel.PDDocument
  * [elements][Element], a [table][TableElement] can span multiple pages and therfore handles
  * rendering differently than other [elements][Element].
  */
-class TableElement(override val parent: Document) : Element(parent) {
+class TableElement(override val parent: Document) : Element(parent), ContainerChild {
+  override fun toElement() = this
 
   /** A sticky header that will be repeated on top of each page. */
   var header: RowElement? = null

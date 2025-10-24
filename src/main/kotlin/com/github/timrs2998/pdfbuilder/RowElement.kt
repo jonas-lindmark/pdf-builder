@@ -2,16 +2,20 @@ package com.github.timrs2998.pdfbuilder
 
 import org.apache.pdfbox.pdmodel.PDDocument
 
-class RowElement(override val parent: TableElement) : Element(parent) {
-
-  val columns = mutableListOf<Element>()
+class RowElement(override val parent: TableElement) : ContainerElement(parent) {
+  val columns: List<Element>
+    get() = children
 
   var minHeight = 0f
 
   var weights = mutableListOf<Float>()
 
+  fun addColumn(column: ContainerChild) {
+    containerChildren.add(column)
+  }
+
   override fun instanceHeight(width: Float, startY: Float): Float {
-    val heights = columns.map { it.height(it.getWidth(width), startY) }
+    val heights = children.map { it.height(it.getWidth(width), startY) }
     return (heights.maxOrNull() ?: 0f).coerceAtLeast(minHeight)
   }
 
@@ -23,7 +27,7 @@ class RowElement(override val parent: TableElement) : Element(parent) {
       minHeight: Float
   ) {
     val height = height(endX - startX, startY, minHeight)
-    columns.fold(startX) { columnStartX, column ->
+    children.fold(startX) { columnStartX, column ->
       val columnWidth = column.getWidth(endX - startX)
       column.render(pdDocument, columnStartX, columnStartX + columnWidth, startY, height)
       columnStartX + columnWidth
@@ -32,7 +36,8 @@ class RowElement(override val parent: TableElement) : Element(parent) {
 
   private fun Element.getWidth(totalWidth: Float): Float {
     val multiplier =
-        if (weights.isEmpty()) 1f / columns.size else weights[columns.indexOf(this)] / weights.sum()
+        if (weights.isEmpty()) 1f / children.size
+        else weights[children.indexOf(this)] / weights.sum()
     return totalWidth * multiplier
   }
 }

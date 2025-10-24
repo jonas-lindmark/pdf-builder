@@ -6,7 +6,8 @@ import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.pdmodel.PDPageContentStream
 import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode.APPEND
 
-class TextElement(parent: Element, val value: String = "Hello, world!") : Element(parent) {
+class TextElement(parent: Element, val value: String) : Element(parent), ContainerChild {
+  override fun toElement() = this
 
   override fun instanceHeight(width: Float, startY: Float): Float {
     return fontHeight * wrapText(width).size

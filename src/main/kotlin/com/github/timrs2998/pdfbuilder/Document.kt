@@ -8,10 +8,7 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle
  * Represents a pdf document. The document is the outer container for all elements belonging to a
  * pdf. Once rendered, it cannot be modified.
  */
-class Document : Element(null) {
-
-  val children = mutableListOf<Element>()
-
+class Document : ContainerElement(null) {
   var footerFactory: (page: Int, totalPages: Int) -> Element? = { page, totalPages -> null }
 
   var orientation: Orientation = Orientation.PORTRAIT
