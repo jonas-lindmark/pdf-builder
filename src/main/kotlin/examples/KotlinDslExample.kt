@@ -1,4 +1,4 @@
-package com.github.timrs2998.pdfbuilder.examples
+package examples
 
 import com.github.timrs2998.pdfbuilder.*
 import com.github.timrs2998.pdfbuilder.style.Alignment
