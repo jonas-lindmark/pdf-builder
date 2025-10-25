@@ -11,3 +11,4 @@ out/
 output.pdf
 .DS_Store\
 *.iml
+/src/test/kotlin/examples/*.pdf

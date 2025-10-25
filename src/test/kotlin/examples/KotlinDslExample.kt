@@ -4,6 +4,7 @@ import com.github.timrs2998.pdfbuilder.*
 import com.github.timrs2998.pdfbuilder.style.Alignment
 import com.github.timrs2998.pdfbuilder.style.Border
 import com.github.timrs2998.pdfbuilder.style.Margin
+import io.kotest.core.spec.style.FunSpec
 import java.awt.Color
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts
 
@@ -11,8 +12,8 @@ import org.apache.pdfbox.pdmodel.font.Standard14Fonts
  * Class containing main method to demonstrate creation of a sample "output.pdf" using a
  * Kotlin-specific DSL. This approach is more declarative, but is less portable between languages.
  */
-object KotlinDslExample {
-
+object KotlinDslExample :
+    FunSpec({ test("run KotlinDslExample") { KotlinDslExample.main(emptyArray()) } }) {
   @JvmStatic
   fun main(args: Array<String>) {
     document {
@@ -56,9 +57,6 @@ object KotlinDslExample {
 
           text("Hola, mundo.")
         }
-        .use { pdDocument ->
-          pdDocument.save("output.pdf")
-          pdDocument.close()
-        }
+        .use { pdDocument -> pdDocument.save("src/test/kotlin/examples/KotlinDslExample.pdf") }
   }
 }

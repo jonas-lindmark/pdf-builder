@@ -6,14 +6,16 @@ import com.github.timrs2998.pdfbuilder.elements.TextElement
 import com.github.timrs2998.pdfbuilder.elements.VerticalStackElement
 import com.github.timrs2998.pdfbuilder.style.Alignment
 import com.github.timrs2998.pdfbuilder.style.Border
+import com.github.timrs2998.pdfbuilder.style.Margin
+import io.kotest.core.spec.style.FunSpec
 import java.awt.Color
 
 /**
  * Class containing main method demonstrate creation of a sample "output.pdf" in an imperative, Java
  * style.
  */
-object ImperativeExample {
-
+object ImperativeExample :
+    FunSpec({ test("run ImperativeExample") { ImperativeExample.main(emptyArray()) } }) {
   @JvmStatic
   fun main(args: Array<String>) {
     val document = Document()
@@ -22,6 +24,8 @@ object ImperativeExample {
     initialText.fontColor = Color(1f, .1f, .1f)
     initialText.backgroundColor = Color(222, 222, 222)
     document.addContainerChild(initialText)
+
+    document.margin = Margin(8F, 8F, 8F, 8F)
 
     document.addContainerChild(
         TextElement(
@@ -32,7 +36,7 @@ object ImperativeExample {
     document.addContainerChild(TextElement(document, "This is a third line"))
     document.addContainerChild(TextElement(document, "This is a fourth line"))
 
-    IntRange(0, 59).forEach { i -> document.addContainerChild(TextElement(document, "Value: $i")) }
+    IntRange(0, 40).forEach { i -> document.addContainerChild(TextElement(document, "Value: $i")) }
 
     // Table demo with stacks
     val table = VerticalStackElement(document)
@@ -41,7 +45,6 @@ object ImperativeExample {
       row.addColumn(TextElement(row, "r$i c1"))
       row.addColumn(TextElement(row, "r$i c2"))
       row.addColumn(TextElement(row, "r$i c3"))
-
       table.addContainerChild(row)
     }
     (table.children[2] as HorisontalStackElement).children[1].border =
@@ -51,6 +54,8 @@ object ImperativeExample {
     document.addContainerChild(table)
 
     table.border = Border(1f, 2f, 3f, 4f, Color.GREEN, Color.RED, Color.BLUE, Color.BLACK)
-    document.render().use { pdDocument -> pdDocument.save("output.pdf") }
+    document.render().use { pdDocument ->
+      pdDocument.save("src/test/kotlin/examples/ImperativeExample.pdf")
+    }
   }
 }

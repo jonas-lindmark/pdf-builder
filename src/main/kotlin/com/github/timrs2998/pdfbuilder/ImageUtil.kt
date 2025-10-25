@@ -11,9 +11,9 @@ fun BufferedImage.resize(width: Int, height: Int): BufferedImage {
   var targetHeight = height
   val ratio = (this.height.toFloat() / this.width.toFloat())
   if (ratio <= 1) { // square or landscape-oriented image
-    targetHeight = ceil((targetWidth.toFloat() * ratio).toDouble()).toInt()
-  } else { // portrait image
     targetWidth = (targetHeight.toFloat() / ratio).roundToInt()
+  } else { // portrait image
+    targetHeight = ceil((targetWidth.toFloat() * ratio).toDouble()).toInt()
   }
   val isOpaque = this.transparency == Transparency.OPAQUE
   val bi =
