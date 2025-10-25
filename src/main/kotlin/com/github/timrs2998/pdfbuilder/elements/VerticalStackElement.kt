@@ -6,9 +6,7 @@ class VerticalStackElement(parent: Element?) : ContainerElement(parent), Contain
   override fun toElement() = this
 
   override fun instanceHeight(width: Float, startY: Float): Float {
-    return children.fold(0F) { acc, element ->
-      return acc + element.height(width, startY)
-    }
+    return children.fold(0F) { acc, element -> acc + element.height(width, startY + acc) }
   }
 
   override fun renderInstance(

@@ -2,7 +2,10 @@ package com.github.timrs2998.pdfbuilder.elements
 
 import org.apache.pdfbox.pdmodel.PDDocument
 
-class RowElement(override val parent: TableElement) : ContainerElement(parent) {
+class HorisontalStackElement(override val parent: ContainerElement) :
+    ContainerElement(parent), ContainerChild {
+  override fun toElement() = this
+
   val columns: List<Element>
     get() = children
 

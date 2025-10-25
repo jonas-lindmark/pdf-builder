@@ -1,9 +1,9 @@
 package examples
 
 import com.github.timrs2998.pdfbuilder.elements.Document
-import com.github.timrs2998.pdfbuilder.elements.RowElement
-import com.github.timrs2998.pdfbuilder.elements.TableElement
+import com.github.timrs2998.pdfbuilder.elements.HorisontalStackElement
 import com.github.timrs2998.pdfbuilder.elements.TextElement
+import com.github.timrs2998.pdfbuilder.elements.VerticalStackElement
 import com.github.timrs2998.pdfbuilder.style.Alignment
 import com.github.timrs2998.pdfbuilder.style.Border
 import java.awt.Color
@@ -34,24 +34,23 @@ object ImperativeExample {
 
     IntRange(0, 59).forEach { i -> document.addContainerChild(TextElement(document, "Value: $i")) }
 
-    // Table demo (spans two pages)
-    val table = TableElement(document)
+    // Table demo with stacks
+    val table = VerticalStackElement(document)
     IntRange(0, 4).forEach { i ->
-      val row = RowElement(table)
+      val row = HorisontalStackElement(table)
       row.addColumn(TextElement(row, "r$i c1"))
       row.addColumn(TextElement(row, "r$i c2"))
       row.addColumn(TextElement(row, "r$i c3"))
 
-      table.rows.add(row)
+      table.addContainerChild(row)
     }
-    table.rows[2].columns[1].border = Border(1f, 1f, 1f, 1f, Color.RED)
-    table.rows[2].columns[1].horizontalAlignment = Alignment.RIGHT
-    table.rows[3].columns[1].horizontalAlignment = Alignment.CENTER
+    (table.children[2] as HorisontalStackElement).children[1].border =
+        Border(1f, 1f, 1f, 1f, Color.RED)
+    (table.children[2] as HorisontalStackElement).children[1].horizontalAlignment = Alignment.RIGHT
+    (table.children[3] as HorisontalStackElement).horizontalAlignment = Alignment.CENTER
     document.addContainerChild(table)
 
     table.border = Border(1f, 2f, 3f, 4f, Color.GREEN, Color.RED, Color.BLUE, Color.BLACK)
-    //        table.backgroundColor = Color.GREEN
-
     document.render().use { pdDocument -> pdDocument.save("output.pdf") }
   }
 }

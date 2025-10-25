@@ -124,8 +124,7 @@ abstract class Element(open val parent: Element?) {
 
   /**
    * Renders the entire element including margins, padding, borders, and background. Unless
-   * overridden, assumes the element being rendered will fit on the page. Multi-page elements (ie:
-   * [TableElement]) must handle paging themselves.
+   * overridden, assumes the element being rendered will fit on the page.
    */
   open fun render(
       pdDocument: PDDocument,

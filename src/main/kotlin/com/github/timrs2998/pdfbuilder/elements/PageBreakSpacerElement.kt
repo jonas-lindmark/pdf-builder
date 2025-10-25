@@ -1,8 +1,6 @@
 package com.github.timrs2998.pdfbuilder.elements
 
-import com.github.timrs2998.pdfbuilder.style.Border
 import org.apache.pdfbox.pdmodel.PDDocument
-import java.awt.Color
 
 // we want to fill the page but not go over so an extra blank page is inserted
 private const val MARGIN_TO_EDGE = 0.5F
@@ -13,15 +11,18 @@ class PageBreakSpacerElement(parent: Element?) : Element(parent), ContainerChild
 
   override fun instanceHeight(width: Float, startY: Float): Float {
     val pageLocalStartY = startY % document.pageHeight
-    return document.pageHeight - pageLocalStartY - document.margin.bottom - document.padding.bottom - MARGIN_TO_EDGE
+    return document.pageHeight -
+        pageLocalStartY -
+        document.margin.bottom -
+        document.padding.bottom -
+        MARGIN_TO_EDGE
   }
 
   override fun renderInstance(
-    pdDocument: PDDocument,
-    startX: Float,
-    endX: Float,
-    startY: Float,
-    minHeight: Float
-  ) {
-  }
+      pdDocument: PDDocument,
+      startX: Float,
+      endX: Float,
+      startY: Float,
+      minHeight: Float
+  ) {}
 }

@@ -4,7 +4,6 @@ import com.github.timrs2998.pdfbuilder.*
 import com.github.timrs2998.pdfbuilder.style.Alignment
 import com.github.timrs2998.pdfbuilder.style.Border
 import com.github.timrs2998.pdfbuilder.style.Margin
-import com.github.timrs2998.pdfbuilder.style.Padding
 import java.awt.Color
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts
 
@@ -31,11 +30,12 @@ object KotlinDslExample {
 
           text("Hello, color is red!") { fontColor = Color(1f, .1f, .1f) }
 
-          table {
+          // simulate table with stacks (wont handle pagebreak though)
+          vStack {
             border = Border(1f, 2f, 3f, 4f, Color.GREEN, Color.RED, Color.BLUE, Color.BLACK)
             margin = Margin(25f, 0f, 25f, 0f)
 
-            header {
+            hStack {
               backgroundColor = Color.CYAN
               fontName = Standard14Fonts.FontName.TIMES_BOLD
 
@@ -43,13 +43,15 @@ object KotlinDslExample {
               text("Second Column")
             }
 
-            for (i in IntRange(0, 60)) {
-              row {
+            for (i in IntRange(0, 30)) {
+              hStack {
                 text("row #$i, col 0")
                 text("row #$i, col 1")
               }
             }
           }
+
+          pageBreak()
           image(img.path)
 
           text("Hola, mundo.")

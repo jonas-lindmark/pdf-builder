@@ -10,22 +10,22 @@ fun BufferedImage.resize(width: Int, height: Int): BufferedImage {
   var targetWidth = width
   var targetHeight = height
   val ratio = (this.height.toFloat() / this.width.toFloat())
-  if (ratio <= 1) { //square or landscape-oriented image
+  if (ratio <= 1) { // square or landscape-oriented image
     targetHeight = ceil((targetWidth.toFloat() * ratio).toDouble()).toInt()
-  } else { //portrait image
+  } else { // portrait image
     targetWidth = (targetHeight.toFloat() / ratio).roundToInt()
   }
   val isOpaque = this.transparency == Transparency.OPAQUE
-  val bi = BufferedImage(
-    targetWidth,
-    targetHeight,
-    if (isOpaque) BufferedImage.TYPE_INT_RGB else BufferedImage.TYPE_INT_ARGB
-  )
+  val bi =
+      BufferedImage(
+          targetWidth,
+          targetHeight,
+          if (isOpaque) BufferedImage.TYPE_INT_RGB else BufferedImage.TYPE_INT_ARGB)
   val g2d = bi.createGraphics()
   g2d.setRenderingHint(
-    RenderingHints.KEY_INTERPOLATION,
-    RenderingHints.VALUE_INTERPOLATION_BILINEAR
-  ) //produces a balanced resizing (fast and decent quality)
+      RenderingHints.KEY_INTERPOLATION,
+      RenderingHints
+          .VALUE_INTERPOLATION_BILINEAR) // produces a balanced resizing (fast and decent quality)
   g2d.drawImage(this, 0, 0, targetWidth, targetHeight, null)
   g2d.dispose()
   return bi

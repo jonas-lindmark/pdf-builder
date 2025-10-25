@@ -2,11 +2,10 @@ package com.github.timrs2998.pdfbuilder
 
 import com.github.timrs2998.pdfbuilder.elements.ContainerElement
 import com.github.timrs2998.pdfbuilder.elements.Document
+import com.github.timrs2998.pdfbuilder.elements.HorisontalStackElement
 import com.github.timrs2998.pdfbuilder.elements.ImageElement
 import com.github.timrs2998.pdfbuilder.elements.PageBreakSpacerElement
 import com.github.timrs2998.pdfbuilder.elements.QrCodeElement
-import com.github.timrs2998.pdfbuilder.elements.RowElement
-import com.github.timrs2998.pdfbuilder.elements.TableElement
 import com.github.timrs2998.pdfbuilder.elements.TextElement
 import com.github.timrs2998.pdfbuilder.elements.VerticalStackElement
 import java.awt.image.BufferedImage
@@ -17,10 +16,10 @@ const val PDF_POINTS_PER_INCH = 72.0
 const val MILLIMETER_TO_PDF_POINTS = PDF_POINTS_PER_INCH / MILLIMETER_PER_INCH
 
 fun Int.mmToPdf(): Float = (this.toDouble() * MILLIMETER_TO_PDF_POINTS).toFloat()
+
 fun Int.mmToPrint(dpi: Float): Int = (this.toDouble() * dpi / MILLIMETER_PER_INCH).toInt()
+
 fun Int.pxToPdf(dpi: Float): Int = (this.toDouble() * PDF_POINTS_PER_INCH / dpi).toInt()
-
-
 
 /** A DSL for Kotlin, Groovy or Java 8 consumers of this API. */
 @DslMarker annotation class DocumentMarker
@@ -37,14 +36,6 @@ fun document(init: Document.() -> Unit): PDDocument {
   val document = Document()
   document.init()
   return document.render()
-}
-
-@DocumentMarker
-fun Document.table(init: TableElement.() -> Unit): TableElement {
-  val tableElement = TableElement(this)
-  tableElement.init()
-  addContainerChild(tableElement)
-  return tableElement
 }
 
 @DocumentMarker
@@ -112,22 +103,10 @@ fun ContainerElement.vStack(init: VerticalStackElement.() -> Unit = {}): Vertica
   return element
 }
 
-@DslMarker annotation class TableMarker
-
-@TableMarker
-fun TableElement.header(init: RowElement.() -> Unit): RowElement {
-  val rowElement = RowElement(this)
-  rowElement.init()
-  this.header = rowElement
-  return rowElement
+@ContainerElementMarker
+fun ContainerElement.hStack(init: HorisontalStackElement.() -> Unit = {}): HorisontalStackElement {
+  val element = HorisontalStackElement(this)
+  element.init()
+  addContainerChild(element)
+  return element
 }
-
-@TableMarker
-fun TableElement.row(init: RowElement.() -> Unit): RowElement {
-  val rowElement = RowElement(this)
-  rowElement.init()
-  this.rows.add(rowElement)
-  return rowElement
-}
-
-@DslMarker annotation class RowMarker

@@ -52,7 +52,8 @@ class Document : ContainerElement(null) {
       minHeight: Float
   ) {
     children.fold(startY) { startY, child ->
-      val adjustedStartY = adjustStartYForPaging(startY, startY + child.height(endX - startX, startY))
+      val adjustedStartY =
+          adjustStartYForPaging(startY, startY + child.height(endX - startX, startY))
       child.render(pdDocument, startX, endX, adjustedStartY)
       adjustedStartY + child.height(endX - startX, adjustedStartY)
     }
