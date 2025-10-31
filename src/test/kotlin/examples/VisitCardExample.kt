@@ -1,6 +1,5 @@
 package examples
 
-import io.kotest.core.spec.style.FunSpec
 import javax.imageio.ImageIO
 import org.apache.pdfbox.pdmodel.common.PDImmutableRectangle
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts
@@ -20,12 +19,12 @@ import se.denacode.pdfcompose.style.Margin
 import se.denacode.pdfcompose.style.Padding
 import se.denacode.pdfcompose.text
 import se.denacode.pdfcompose.vStack
+import kotlin.test.Test
 
-object VisitCardExample :
-    FunSpec({ test("run VisitCardExample") { VisitCardExample.main(emptyArray()) } }) {
+class VisitCardExample {
 
-  @JvmStatic
-  fun main(args: Array<String>) {
+    @Test
+    fun `Run VisitCardExample`() {
     document {
           val pageMargin = 4.mm()
           fontName = Standard14Fonts.FontName.HELVETICA

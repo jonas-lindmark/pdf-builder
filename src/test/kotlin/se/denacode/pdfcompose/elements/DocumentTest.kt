@@ -1,12 +1,13 @@
 package se.denacode.pdfcompose.elements
 
-import io.kotest.core.spec.style.FunSpec
-import java.io.ByteArrayOutputStream
 import org.apache.pdfbox.pdmodel.PDDocument
+import java.io.ByteArrayOutputStream
+import kotlin.test.Test
 
-class DocumentSpec :
-    FunSpec({
-      test("new document") {
+class DocumentTest() {
+
+    @Test
+    fun `Should create new document`() {
         val document = Document()
 
         assert(document.children.isEmpty())
@@ -20,9 +21,10 @@ class DocumentSpec :
         document.inheritedFontSize
         document.inheritedHorizontalAlignment
         document.inheritedPdFont
-      }
+    }
 
-      test("empty document") {
+    @Test
+    fun `Should save empty document`() {
         val document = Document()
         lateinit var pdDocument: PDDocument
 
@@ -31,5 +33,5 @@ class DocumentSpec :
 
         // then should save to pdf
         ByteArrayOutputStream().use { os -> pdDocument.save(os) }
-      }
-    })
+    }
+}

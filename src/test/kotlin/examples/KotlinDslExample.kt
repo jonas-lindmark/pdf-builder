@@ -1,67 +1,62 @@
 package examples
 
-import io.kotest.core.spec.style.FunSpec
-import java.awt.Color
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts
-import se.denacode.pdfcompose.document
-import se.denacode.pdfcompose.hStack
-import se.denacode.pdfcompose.image
-import se.denacode.pdfcompose.pageBreak
+import se.denacode.pdfcompose.*
 import se.denacode.pdfcompose.style.Alignment
 import se.denacode.pdfcompose.style.Border
 import se.denacode.pdfcompose.style.Margin
-import se.denacode.pdfcompose.text
-import se.denacode.pdfcompose.vStack
+import java.awt.Color
+import kotlin.test.Test
 
 /**
  * Class containing main method to demonstrate creation of a sample "output.pdf" using a
  * Kotlin-specific DSL. This approach is more declarative, but is less portable between languages.
  */
-object KotlinDslExample :
-    FunSpec({ test("run KotlinDslExample") { KotlinDslExample.main(emptyArray()) } }) {
-  @JvmStatic
-  fun main(args: Array<String>) {
-    document {
-          margin = Margin(50f, 50f, 50f, 50f)
-          horizontalAlignment = Alignment.CENTER
+class KotlinDslExample {
 
-          // Free image from https://pixabay.com/
-          val img = this::class.java.classLoader.getResource("cat.jpg")
-          image(img.path) {
-            imgHeight = 50
-            imgWidth = 90
-          }
+    @Test
+    fun `Run KotlinDslExample`() {
+        document {
+            margin = Margin(50f, 50f, 50f, 50f)
+            horizontalAlignment = Alignment.CENTER
 
-          text("Hello")
-
-          text("Hello, color is red!") { fontColor = Color(1f, .1f, .1f) }
-
-          // simulate table with stacks (wont handle pagebreak though)
-          vStack {
-            border = Border(1f, 2f, 3f, 4f, Color.GREEN, Color.RED, Color.BLUE, Color.BLACK)
-            margin = Margin(25f, 0f, 25f, 0f)
-
-            hStack {
-              backgroundColor = Color.CYAN
-              fontName = Standard14Fonts.FontName.TIMES_BOLD
-
-              text("First Column")
-              text("Second Column")
+            // Free image from https://pixabay.com/
+            val img = this::class.java.classLoader.getResource("cat.jpg")
+            image(img.path) {
+                imgHeight = 50
+                imgWidth = 90
             }
 
-            for (i in IntRange(0, 30)) {
-              hStack {
-                text("row #$i, col 0")
-                text("row #$i, col 1")
-              }
+            text("Hello")
+
+            text("Hello, color is red!") { fontColor = Color(1f, .1f, .1f) }
+
+            // simulate table with stacks (wont handle pagebreak though)
+            vStack {
+                border = Border(1f, 2f, 3f, 4f, Color.GREEN, Color.RED, Color.BLUE, Color.BLACK)
+                margin = Margin(25f, 0f, 25f, 0f)
+
+                hStack {
+                    backgroundColor = Color.CYAN
+                    fontName = Standard14Fonts.FontName.TIMES_BOLD
+
+                    text("First Column")
+                    text("Second Column")
+                }
+
+                for (i in IntRange(0, 30)) {
+                    hStack {
+                        text("row #$i, col 0")
+                        text("row #$i, col 1")
+                    }
+                }
             }
-          }
 
-          pageBreak()
-          image(img.path)
+            pageBreak()
+            image(img.path)
 
-          text("Hola, mundo.")
+            text("Hola, mundo.")
         }
-        .use { pdDocument -> pdDocument.save("src/test/kotlin/examples/KotlinDslExample.pdf") }
-  }
+            .use { pdDocument -> pdDocument.save("src/test/kotlin/examples/KotlinDslExample.pdf") }
+    }
 }

@@ -1,60 +1,26 @@
-import org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
-
 plugins {
-  // ./gradlew dependencyUpdates -Drevision=release
-  id("com.github.ben-manes.versions") version Versions.benManesVersionPlugin
-  `maven-publish`
-  id("org.jetbrains.kotlin.jvm") version Versions.kotlin
-  id("org.jetbrains.dokka") version Versions.dokka
-  id("com.diffplug.spotless") version Versions.spotlessGradle
+    kotlin("jvm") version "2.2.20"
 }
 
-group = "com.denacode"
-
-version = "1.0.0"
-
-description = "PDF builder written in Kotlin with a statically typed DSL"
+group = "se.denacode.sample"
+version = "1.0-SNAPSHOT"
+description = "Composable PDF builder with Kotlin DSL"
 
 java { withSourcesJar() }
 
-repositories { mavenCentral() }
+repositories {
+    mavenCentral()
+}
 
 dependencies {
-  implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
   implementation("com.google.zxing:core:3.5.3")
-  api("org.apache.pdfbox:pdfbox:${Versions.pdfbox}")
-
-  testRuntimeOnly("org.jetbrains.kotlin:kotlin-reflect")
-
-  testImplementation("io.kotest:kotest-runner-junit5:${Versions.kotest}")
-  testImplementation("io.kotest:kotest-assertions-core:${Versions.kotest}")
-  testImplementation("io.kotest:kotest-property:${Versions.kotest}")
+  api("org.apache.pdfbox:pdfbox:3.0.6")
+  testImplementation(kotlin("test"))
 }
 
-spotless {
-  kotlin { ktfmt(Versions.ktfmt) }
-  kotlinGradle { ktfmt(Versions.ktfmt) }
+tasks.test {
+    useJUnitPlatform()
 }
-
-tasks {
-  test { useJUnitPlatform() }
-  wrapper {
-    distributionType = ALL
-    gradleVersion = Versions.gradle
-  }
-}
-
-publishing {
-  publications { create<MavenPublication>("maven") { from(components["java"]) } }
-  repositories {
-    maven {
-      name = "GitHubPackages"
-      url = uri("https://maven.pkg.github.com/timrs2998/pdf-builder")
-      credentials {
-        username = System.getenv("GITHUB_ACTOR")
-        password = System.getenv("GITHUB_TOKEN")
-      }
-    }
-  }
+kotlin {
+    jvmToolchain(21)
 }
