@@ -1,10 +1,10 @@
 package examples
 
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts
-import se.denacode.pdfcompose.*
-import se.denacode.pdfcompose.style.Alignment
-import se.denacode.pdfcompose.style.Border
-import se.denacode.pdfcompose.style.Margin
+import io.github.jonaslindmark.pdfcompose.*
+import io.github.jonaslindmark.pdfcompose.style.Alignment
+import io.github.jonaslindmark.pdfcompose.style.Border
+import io.github.jonaslindmark.pdfcompose.style.Margin
 import java.awt.Color
 import kotlin.test.Test
 
@@ -21,7 +21,7 @@ class KotlinDslExample {
             horizontalAlignment = Alignment.CENTER
 
             // Free image from https://pixabay.com/
-            val img = this::class.java.classLoader.getResource("cat.jpg")
+            val img = this::class.java.classLoader.getResource("cat.jpg")!!
             image(img.path) {
                 imgHeight = 50
                 imgWidth = 90

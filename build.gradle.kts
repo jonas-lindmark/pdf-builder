@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm") version "2.2.20"
 }
 
-group = "se.denacode.sample"
+group = "io.github.jonaslindmark.pdfcompose"
 version = "1.0-SNAPSHOT"
 description = "Composable PDF builder with Kotlin DSL"
 

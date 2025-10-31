@@ -1,12 +1,12 @@
 package examples
 
-import se.denacode.pdfcompose.elements.Document
-import se.denacode.pdfcompose.elements.HorisontalStackElement
-import se.denacode.pdfcompose.elements.TextElement
-import se.denacode.pdfcompose.elements.VerticalStackElement
-import se.denacode.pdfcompose.style.Alignment
-import se.denacode.pdfcompose.style.Border
-import se.denacode.pdfcompose.style.Margin
+import io.github.jonaslindmark.pdfcompose.elements.Document
+import io.github.jonaslindmark.pdfcompose.elements.HorisontalStackElement
+import io.github.jonaslindmark.pdfcompose.elements.TextElement
+import io.github.jonaslindmark.pdfcompose.elements.VerticalStackElement
+import io.github.jonaslindmark.pdfcompose.style.Alignment
+import io.github.jonaslindmark.pdfcompose.style.Border
+import io.github.jonaslindmark.pdfcompose.style.Margin
 import java.awt.Color
 import kotlin.test.Test
 

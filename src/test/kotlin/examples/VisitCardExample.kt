@@ -2,10 +2,10 @@ package examples
 
 import org.apache.pdfbox.pdmodel.common.PDImmutableRectangle
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts
-import se.denacode.pdfcompose.*
-import se.denacode.pdfcompose.style.Alignment
-import se.denacode.pdfcompose.style.Margin
-import se.denacode.pdfcompose.style.Padding
+import io.github.jonaslindmark.pdfcompose.*
+import io.github.jonaslindmark.pdfcompose.style.Alignment
+import io.github.jonaslindmark.pdfcompose.style.Margin
+import io.github.jonaslindmark.pdfcompose.style.Padding
 import javax.imageio.ImageIO
 import kotlin.test.Test
 
