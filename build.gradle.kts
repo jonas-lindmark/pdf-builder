@@ -9,9 +9,9 @@ plugins {
   id("com.diffplug.spotless") version Versions.spotlessGradle
 }
 
-group = "com.github.timrs2998"
+group = "com.denacode"
 
-version = "2.1.0"
+version = "1.0.0"
 
 description = "PDF builder written in Kotlin with a statically typed DSL"
 

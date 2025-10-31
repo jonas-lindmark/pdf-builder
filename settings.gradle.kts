@@ -1,1 +1,1 @@
-rootProject.name = "pdf-builder"
+rootProject.name = "pdf-compose"
