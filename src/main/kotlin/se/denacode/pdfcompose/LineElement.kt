@@ -1,14 +1,14 @@
 package se.denacode.pdfcompose
 
-import java.awt.Color
 import org.apache.pdfbox.pdmodel.PDDocument
 import se.denacode.pdfcompose.elements.ContainerChild
 import se.denacode.pdfcompose.elements.Element
 import se.denacode.pdfcompose.style.Alignment
+import java.awt.Color
 
 enum class LineOrientation {
-  VERTICAL,
-  HORIZONTAL
+    VERTICAL,
+    HORIZONTAL
 }
 
 class LineElement(
@@ -17,55 +17,56 @@ class LineElement(
     val lineLength: Float,
     var lineWidth: Float
 ) : Element(parent), ContainerChild {
-  override fun toElement() = this
+    override fun toElement() = this
 
-  val height: Float
-    get() =
-        when (orientation) {
-          LineOrientation.VERTICAL -> lineLength
-          LineOrientation.HORIZONTAL -> lineWidth
-        }
+    val height: Float
+        get() =
+            when (orientation) {
+                LineOrientation.VERTICAL -> lineLength
+                LineOrientation.HORIZONTAL -> lineWidth
+            }
 
-  val width: Float
-    get() =
-        when (orientation) {
-          LineOrientation.VERTICAL -> lineWidth
-          LineOrientation.HORIZONTAL -> lineLength
-        }
+    val width: Float
+        get() =
+            when (orientation) {
+                LineOrientation.VERTICAL -> lineWidth
+                LineOrientation.HORIZONTAL -> lineLength
+            }
 
-  override fun instanceHeight(width: Float, startY: Float): Float {
-    println("inatanceHeight: $height orient:$orientation")
-    return height
-  }
+    override fun instanceHeight(width: Float, startY: Float): Float {
+        println("inatanceHeight: $height orient:$orientation")
+        return height
+    }
 
-  override fun renderInstance(
-      pdDocument: PDDocument,
-      startX: Float,
-      endX: Float,
-      startY: Float,
-      minHeight: Float
-  ) {
+    override fun renderInstance(
+        pdDocument: PDDocument,
+        startX: Float,
+        endX: Float,
+        startY: Float,
+        minHeight: Float
+    ) {
 
-    val realStartX =
-        when (inheritedHorizontalAlignment) {
-          Alignment.LEFT -> startX
-          Alignment.RIGHT -> endX - width
-          Alignment.CENTER -> startX + (endX - startX - width) / 2f
-        }
+        val realStartX =
+            when (inheritedHorizontalAlignment) {
+                Alignment.LEFT -> startX
+                Alignment.RIGHT -> endX - width
+                Alignment.CENTER -> startX + (endX - startX - width) / 2f
+            }
 
-    val (transformedEndX, transformedEndY) =
-        when (orientation) {
-          LineOrientation.HORIZONTAL -> Pair(realStartX + lineLength, startY)
-          LineOrientation.VERTICAL -> Pair(realStartX, startY + lineLength)
-        }
-    drawLine(
-        document,
-        pdDocument,
-        realStartX,
-        startY,
-        transformedEndX,
-        transformedEndY,
-        lineWidth,
-        Color.BLACK)
-  }
+        val (transformedEndX, transformedEndY) =
+            when (orientation) {
+                LineOrientation.HORIZONTAL -> Pair(realStartX + lineLength, startY)
+                LineOrientation.VERTICAL -> Pair(realStartX, startY + lineLength)
+            }
+        drawLine(
+            document,
+            pdDocument,
+            realStartX,
+            startY,
+            transformedEndX,
+            transformedEndY,
+            lineWidth,
+            Color.BLACK
+        )
+    }
 }

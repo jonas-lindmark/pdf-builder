@@ -1,15 +1,11 @@
 package se.denacode.pdfcompose.elements
 
-import java.awt.Color
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.pdmodel.font.PDType1Font
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName
 import se.denacode.pdfcompose.drawBox
-import se.denacode.pdfcompose.style.Alignment
-import se.denacode.pdfcompose.style.Border
-import se.denacode.pdfcompose.style.Margin
-import se.denacode.pdfcompose.style.Padding
-import se.denacode.pdfcompose.style.Wrap
+import se.denacode.pdfcompose.style.*
+import java.awt.Color
 
 /**
  * Everything belonging to a [Document] extends from [Element], including [Document] itself. An
@@ -27,151 +23,162 @@ import se.denacode.pdfcompose.style.Wrap
  */
 abstract class Element(open val parent: Element?) {
 
-  companion object {
-    @JvmStatic private val FALLBACK_BACKGROUND_COLOR = Color.WHITE
+    companion object {
+        @JvmStatic
+        private val FALLBACK_BACKGROUND_COLOR = Color.WHITE
 
-    @JvmStatic private val FALLBACK_FONT_COLOR = Color.BLACK
+        @JvmStatic
+        private val FALLBACK_FONT_COLOR = Color.BLACK
 
-    @JvmStatic private val FALLBACK_FONT_SIZE = 12f
+        @JvmStatic
+        private val FALLBACK_FONT_SIZE = 12f
 
-    @JvmStatic private val FALLBACK_HORIZONTAL_ALIGNMENT = Alignment.LEFT
+        @JvmStatic
+        private val FALLBACK_HORIZONTAL_ALIGNMENT = Alignment.LEFT
 
-    @JvmStatic private val FALLBACK_PD_FONT: PDType1Font = PDType1Font(FontName.TIMES_ROMAN)
+        @JvmStatic
+        private val FALLBACK_PD_FONT: PDType1Font = PDType1Font(FontName.TIMES_ROMAN)
 
-    @JvmStatic private val FALLBACK_WRAP: Wrap = Wrap.WORD
-  }
-
-  // Properties that are not inherited
-  var border = Border.ZERO
-  var margin = Margin.ZERO
-  var padding = Padding.ZERO
-
-  // Properties that become inherited by children unless overridden or null
-  var backgroundColor: Color? = null
-  var fontColor: Color? = null
-  var fontSize: Float? = null
-  var horizontalAlignment: Alignment? = null
-  var fontName: FontName? = null
-  var font: PDType1Font? = null
-  var wrap: Wrap? = null
-
-  /**
-   * ***************************************************************************************************************
-   */
-  /**
-   * Properties lazily inherited during rendering
-   * *****************************************************************
-   */
-  /**
-   * ***************************************************************************************************************
-   */
-  protected val document: Document by lazy {
-    if (this is Document) {
-      this
-    } else {
-      parent!!.document
+        @JvmStatic
+        private val FALLBACK_WRAP: Wrap = Wrap.WORD
     }
-  }
-  internal val inheritedBackgroundColor: Color by lazy {
-    backgroundColor ?: parent?.inheritedBackgroundColor ?: FALLBACK_BACKGROUND_COLOR
-  }
 
-  internal val inheritedFontColor: Color by lazy {
-    fontColor ?: parent?.inheritedFontColor ?: FALLBACK_FONT_COLOR
-  }
+    // Properties that are not inherited
+    var border = Border.ZERO
+    var margin = Margin.ZERO
+    var padding = Padding.ZERO
 
-  internal val inheritedFontSize: Float by lazy {
-    fontSize ?: parent?.inheritedFontSize ?: FALLBACK_FONT_SIZE
-  }
+    // Properties that become inherited by children unless overridden or null
+    var backgroundColor: Color? = null
+    var fontColor: Color? = null
+    var fontSize: Float? = null
+    var horizontalAlignment: Alignment? = null
+    var fontName: FontName? = null
+    var font: PDType1Font? = null
+    var wrap: Wrap? = null
 
-  internal val inheritedHorizontalAlignment: Alignment by lazy {
-    horizontalAlignment ?: parent?.inheritedHorizontalAlignment ?: FALLBACK_HORIZONTAL_ALIGNMENT
-  }
-
-  internal val inheritedPdFont: PDType1Font by lazy {
-    font ?: fontName?.let { PDType1Font(it) } ?: parent?.inheritedPdFont ?: FALLBACK_PD_FONT
-  }
-
-  internal val inheritedWrap: Wrap by lazy { wrap ?: parent?.wrap ?: FALLBACK_WRAP }
-
-  /**
-   * ***************************************************************************************************************
-   */
-  /**
-   * Methods needed for rendering
-   * *********************************************************************************
-   */
-  /**
-   * ***************************************************************************************************************
-   */
-  private var cachedInstanceHeightStartY: Float? = null
-  private var cachedInstanceHeight: Float? = null
-
-  /** Determines the height considered by this element, including margins and padding. */
-  fun height(width: Float, startY: Float, minHeight: Float = 0f): Float {
-    if (cachedInstanceHeight == null || cachedInstanceHeightStartY != startY) {
-      cachedInstanceHeight =
-          instanceHeight(
-              width = width - margin.left - margin.right - padding.left - padding.right,
-              startY = startY + margin.top + padding.top)
-      cachedInstanceHeightStartY = startY
+    /**
+     * ***************************************************************************************************************
+     */
+    /**
+     * Properties lazily inherited during rendering
+     * *****************************************************************
+     */
+    /**
+     * ***************************************************************************************************************
+     */
+    protected val document: Document by lazy {
+        if (this is Document) {
+            this
+        } else {
+            parent!!.document
+        }
     }
-    return minHeight.coerceAtLeast(cachedInstanceHeight!!) +
-        margin.top +
-        margin.bottom +
-        padding.top +
-        padding.bottom
-  }
+    internal val inheritedBackgroundColor: Color by lazy {
+        backgroundColor ?: parent?.inheritedBackgroundColor ?: FALLBACK_BACKGROUND_COLOR
+    }
 
-  /** Determines the innermost height of the element, excluding margins and padding. */
-  abstract fun instanceHeight(width: Float, startY: Float): Float
+    internal val inheritedFontColor: Color by lazy {
+        fontColor ?: parent?.inheritedFontColor ?: FALLBACK_FONT_COLOR
+    }
 
-  /**
-   * Renders the entire element including margins, padding, borders, and background. Unless
-   * overridden, assumes the element being rendered will fit on the page.
-   */
-  open fun render(
-      pdDocument: PDDocument,
-      startX: Float,
-      endX: Float,
-      startY: Float,
-      minHeight: Float = 0f
-  ) {
-    renderInstance(
-        pdDocument,
-        startX = startX + margin.left + padding.left,
-        endX = endX - margin.right - padding.right,
-        startY = startY + margin.top + padding.top,
-        minHeight = minHeight)
+    internal val inheritedFontSize: Float by lazy {
+        fontSize ?: parent?.inheritedFontSize ?: FALLBACK_FONT_SIZE
+    }
 
-    val height =
-        instanceHeight(
-            width = endX - startX - margin.left - margin.right - padding.left - padding.right,
-            startY = startY + margin.top + padding.top)
+    internal val inheritedHorizontalAlignment: Alignment by lazy {
+        horizontalAlignment ?: parent?.inheritedHorizontalAlignment ?: FALLBACK_HORIZONTAL_ALIGNMENT
+    }
 
-    border.drawBorder(
-        document,
-        pdDocument,
-        startX = startX + margin.left,
-        endX = endX - margin.right,
-        startY = startY + margin.top,
-        endY = startY + margin.top + minHeight.coerceAtLeast(padding.top + height + padding.bottom))
-    drawBox(
-        document,
-        pdDocument,
-        startX = startX + margin.left,
-        endX = endX - margin.right,
-        startY = startY + margin.top,
-        endY = startY + margin.top + minHeight.coerceAtLeast(padding.top + height + padding.bottom),
-        color = inheritedBackgroundColor)
-  }
+    internal val inheritedPdFont: PDType1Font by lazy {
+        font ?: fontName?.let { PDType1Font(it) } ?: parent?.inheritedPdFont ?: FALLBACK_PD_FONT
+    }
 
-  /** Renders the innermost element, excluding margins, padding, borders, and background. */
-  abstract fun renderInstance(
-      pdDocument: PDDocument,
-      startX: Float,
-      endX: Float,
-      startY: Float,
-      minHeight: Float = 0f
-  )
+    internal val inheritedWrap: Wrap by lazy { wrap ?: parent?.wrap ?: FALLBACK_WRAP }
+
+    /**
+     * ***************************************************************************************************************
+     */
+    /**
+     * Methods needed for rendering
+     * *********************************************************************************
+     */
+    /**
+     * ***************************************************************************************************************
+     */
+    private var cachedInstanceHeightStartY: Float? = null
+    private var cachedInstanceHeight: Float? = null
+
+    /** Determines the height considered by this element, including margins and padding. */
+    fun height(width: Float, startY: Float, minHeight: Float = 0f): Float {
+        if (cachedInstanceHeight == null || cachedInstanceHeightStartY != startY) {
+            cachedInstanceHeight =
+                instanceHeight(
+                    width = width - margin.left - margin.right - padding.left - padding.right,
+                    startY = startY + margin.top + padding.top
+                )
+            cachedInstanceHeightStartY = startY
+        }
+        return minHeight.coerceAtLeast(cachedInstanceHeight!!) +
+                margin.top +
+                margin.bottom +
+                padding.top +
+                padding.bottom
+    }
+
+    /** Determines the innermost height of the element, excluding margins and padding. */
+    abstract fun instanceHeight(width: Float, startY: Float): Float
+
+    /**
+     * Renders the entire element including margins, padding, borders, and background. Unless
+     * overridden, assumes the element being rendered will fit on the page.
+     */
+    open fun render(
+        pdDocument: PDDocument,
+        startX: Float,
+        endX: Float,
+        startY: Float,
+        minHeight: Float = 0f
+    ) {
+        renderInstance(
+            pdDocument,
+            startX = startX + margin.left + padding.left,
+            endX = endX - margin.right - padding.right,
+            startY = startY + margin.top + padding.top,
+            minHeight = minHeight
+        )
+
+        val height =
+            instanceHeight(
+                width = endX - startX - margin.left - margin.right - padding.left - padding.right,
+                startY = startY + margin.top + padding.top
+            )
+
+        border.drawBorder(
+            document,
+            pdDocument,
+            startX = startX + margin.left,
+            endX = endX - margin.right,
+            startY = startY + margin.top,
+            endY = startY + margin.top + minHeight.coerceAtLeast(padding.top + height + padding.bottom)
+        )
+        drawBox(
+            document,
+            pdDocument,
+            startX = startX + margin.left,
+            endX = endX - margin.right,
+            startY = startY + margin.top,
+            endY = startY + margin.top + minHeight.coerceAtLeast(padding.top + height + padding.bottom),
+            color = inheritedBackgroundColor
+        )
+    }
+
+    /** Renders the innermost element, excluding margins, padding, borders, and background. */
+    abstract fun renderInstance(
+        pdDocument: PDDocument,
+        startX: Float,
+        endX: Float,
+        startY: Float,
+        minHeight: Float = 0f
+    )
 }

@@ -13,9 +13,9 @@ repositories {
 }
 
 dependencies {
-  implementation("com.google.zxing:core:3.5.3")
-  api("org.apache.pdfbox:pdfbox:3.0.6")
-  testImplementation(kotlin("test"))
+    implementation("com.google.zxing:core:3.5.3")
+    api("org.apache.pdfbox:pdfbox:3.0.6")
+    testImplementation(kotlin("test"))
 }
 
 tasks.test {

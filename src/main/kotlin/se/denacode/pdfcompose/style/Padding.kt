@@ -7,7 +7,8 @@ data class Padding(
     val left: Float = 0f
 ) {
 
-  companion object {
-    @JvmStatic val ZERO = Padding(0f, 0f, 0f, 0f)
-  }
+    companion object {
+        @JvmStatic
+        val ZERO = Padding(0f, 0f, 0f, 0f)
+    }
 }

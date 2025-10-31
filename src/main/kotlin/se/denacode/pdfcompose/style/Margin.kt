@@ -7,7 +7,8 @@ data class Margin(
     val left: Float = 0f
 ) {
 
-  companion object {
-    @JvmStatic val ZERO = Margin(0f, 0f, 0f, 0f)
-  }
+    companion object {
+        @JvmStatic
+        val ZERO = Margin(0f, 0f, 0f, 0f)
+    }
 }
