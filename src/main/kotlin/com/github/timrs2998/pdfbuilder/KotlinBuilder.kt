@@ -15,10 +15,13 @@ const val MILLIMETER_PER_INCH = 25.4
 const val PDF_POINTS_PER_INCH = 72.0
 const val MILLIMETER_TO_PDF_POINTS = PDF_POINTS_PER_INCH / MILLIMETER_PER_INCH
 
-fun Int.mmToPdf(): Float = (this.toDouble() * MILLIMETER_TO_PDF_POINTS).toFloat()
+/** Convert millimeters to PDF points */
+fun Int.mm(): Float = (this.toDouble() * MILLIMETER_TO_PDF_POINTS).toFloat()
 
+/** Convert mm on print to "pixels" at given DPI */
 fun Int.mmToPrint(dpi: Float): Int = (this.toDouble() * dpi / MILLIMETER_PER_INCH).toInt()
 
+/** Convert pixels at given DPI to DPF points on print */
 fun Int.pxToPdf(dpi: Float): Int = (this.toDouble() * PDF_POINTS_PER_INCH / dpi).toInt()
 
 /** A DSL for Kotlin, Groovy or Java 8 consumers of this API. */
