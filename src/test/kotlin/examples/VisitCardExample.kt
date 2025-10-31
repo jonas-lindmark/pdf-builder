@@ -1,13 +1,25 @@
 package examples
 
-import com.github.timrs2998.pdfbuilder.*
-import com.github.timrs2998.pdfbuilder.style.Alignment
-import com.github.timrs2998.pdfbuilder.style.Margin
-import com.github.timrs2998.pdfbuilder.style.Padding
 import io.kotest.core.spec.style.FunSpec
 import javax.imageio.ImageIO
 import org.apache.pdfbox.pdmodel.common.PDImmutableRectangle
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts
+import se.denacode.pdfcompose.LineOrientation
+import se.denacode.pdfcompose.document
+import se.denacode.pdfcompose.hStack
+import se.denacode.pdfcompose.image
+import se.denacode.pdfcompose.line
+import se.denacode.pdfcompose.mm
+import se.denacode.pdfcompose.mmToPrint
+import se.denacode.pdfcompose.pageBreak
+import se.denacode.pdfcompose.pxToPdf
+import se.denacode.pdfcompose.qrCode
+import se.denacode.pdfcompose.resize
+import se.denacode.pdfcompose.style.Alignment
+import se.denacode.pdfcompose.style.Margin
+import se.denacode.pdfcompose.style.Padding
+import se.denacode.pdfcompose.text
+import se.denacode.pdfcompose.vStack
 
 object VisitCardExample :
     FunSpec({ test("run VisitCardExample") { VisitCardExample.main(emptyArray()) } }) {

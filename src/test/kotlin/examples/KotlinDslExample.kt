@@ -1,12 +1,17 @@
 package examples
 
-import com.github.timrs2998.pdfbuilder.*
-import com.github.timrs2998.pdfbuilder.style.Alignment
-import com.github.timrs2998.pdfbuilder.style.Border
-import com.github.timrs2998.pdfbuilder.style.Margin
 import io.kotest.core.spec.style.FunSpec
 import java.awt.Color
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts
+import se.denacode.pdfcompose.document
+import se.denacode.pdfcompose.hStack
+import se.denacode.pdfcompose.image
+import se.denacode.pdfcompose.pageBreak
+import se.denacode.pdfcompose.style.Alignment
+import se.denacode.pdfcompose.style.Border
+import se.denacode.pdfcompose.style.Margin
+import se.denacode.pdfcompose.text
+import se.denacode.pdfcompose.vStack
 
 /**
  * Class containing main method to demonstrate creation of a sample "output.pdf" using a

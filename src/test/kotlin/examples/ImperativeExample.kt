@@ -1,14 +1,14 @@
 package examples
 
-import com.github.timrs2998.pdfbuilder.elements.Document
-import com.github.timrs2998.pdfbuilder.elements.HorisontalStackElement
-import com.github.timrs2998.pdfbuilder.elements.TextElement
-import com.github.timrs2998.pdfbuilder.elements.VerticalStackElement
-import com.github.timrs2998.pdfbuilder.style.Alignment
-import com.github.timrs2998.pdfbuilder.style.Border
-import com.github.timrs2998.pdfbuilder.style.Margin
 import io.kotest.core.spec.style.FunSpec
 import java.awt.Color
+import se.denacode.pdfcompose.elements.Document
+import se.denacode.pdfcompose.elements.HorisontalStackElement
+import se.denacode.pdfcompose.elements.TextElement
+import se.denacode.pdfcompose.elements.VerticalStackElement
+import se.denacode.pdfcompose.style.Alignment
+import se.denacode.pdfcompose.style.Border
+import se.denacode.pdfcompose.style.Margin
 
 /**
  * Class containing main method demonstrate creation of a sample "output.pdf" in an imperative, Java
